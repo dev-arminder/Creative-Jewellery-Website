@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run development",
     "development": "webpack serve --progress --config webpack.config.development.js",
-    "build": "webpack -p --progress --config webpack.config.build.js"
+    "build": "webpack --progress --config webpack.config.build.js"
   },
   "author": "Arminder Singh",
   "license": "ISC",
