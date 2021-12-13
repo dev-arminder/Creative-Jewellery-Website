@@ -20,6 +20,7 @@
     "imagemin": "^8.0.1",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-jpegtran": "^7.0.0",
+    "imagemin-mozjpeg": "^9.0.0",
     "imagemin-optipng": "^8.0.0",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss-loader": "^6.2.1",
