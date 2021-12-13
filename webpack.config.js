@@ -34,16 +34,20 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css"
+    }),
+    new ImageMinimizerPlugin({
+      minimizer: {
+        implementation: ImageMinimizerPlugin.imageminMinify,
+        options: {
+          plugins: [
+            "imagemin-gifsicle",
+            "imagemin-mozjpeg",
+            "imagemin-pngquant",
+            "imagemin-svgo"
+          ]
+        }
+      }
     })
-    // new ImageMinimizerPlugin({
-    //   minimizerOptions: {
-    //     plugins: [
-    //       ["gifsicle", { interlaced: true }],
-    //       ["jpegtran", { progressive: true }],
-    //       ["optipng", { optimizationLevel: 8 }]
-    //     ]
-    //   }
-    // })
   ],
   //   Help you to run particular command for respective files
   // e.g using babel-loader for *.js files - (JS TRANSCOMPILER)
@@ -83,8 +87,28 @@ module.exports = {
             return "[name].[ext]";
           }
         }
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        use: [
+          {
+            loader: ImageMinimizerPlugin.loader,
+            options: {
+              minimizer: {
+                implementation: ImageMinimizerPlugin.imageminMinify,
+                options: {
+                  plugins: [
+                    "imagemin-gifsicle",
+                    "imagemin-mozjpeg",
+                    "imagemin-pngquant",
+                    "imagemin-svgo"
+                  ]
+                }
+              }
+            }
+          }
+        ]
       }
-      // Should be there
     ]
   }
 };
