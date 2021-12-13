@@ -108,30 +108,18 @@ module.exports = {
             }
           }
         ]
+      },
+      {
+        test: /\.(glsl|frag|vert)$/,
+        loader: "raw-loader",
+        exclude: /node_modules/
+      },
+
+      {
+        test: /\.(glsl|frag|vert)$/,
+        loader: "glslify-loader",
+        exclude: /node_modules/
       }
     ]
   }
 };
-
-//  {
-//         test: /\.(jpe?g|png|gif|svg)$/i,
-//         use: [
-//           {
-//             loader: ImageMinimizerPlugin.loader,
-//             enforce: "pre",
-//             options: {
-//               minimizer: {
-//                 implementation: ImageMinimizerPlugin.imageminMinify,
-//                 options: {
-//                   plugins: [
-//                     "imagemin-gifsicle",
-//                     "imagemin-mozjpeg",
-//                     "imagemin-pngquant",
-//                     "imagemin-svgo"
-//                   ]
-//                 }
-//               }
-//             }
-//           }
-//         ]
-// }
