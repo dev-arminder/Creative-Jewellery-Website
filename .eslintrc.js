@@ -1,11 +1,11 @@
 module.exports = {
-    root: true,
-    // extends: ["standard"],
-    globals: {
-        IS_DEVELOPMENT: "readonly",
-    },
-    parserOptions: {
-        ecmaVersion: 2020,
-        sourceType: "module",
-    },
+  root: true,
+  // extends: ["standard"],
+  globals: {
+    IS_DEVELOPMENT: "readonly"
+  },
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: "module"
+  }
 };

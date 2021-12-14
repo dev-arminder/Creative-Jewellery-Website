@@ -5,7 +5,8 @@ const webpack = require("webpack");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
-// const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
 
@@ -47,7 +48,8 @@ module.exports = {
           ]
         }
       }
-    })
+    }),
+    new CleanWebpackPlugin()
   ],
   //   Help you to run particular command for respective files
   // e.g using babel-loader for *.js files - (JS TRANSCOMPILER)
@@ -121,5 +123,9 @@ module.exports = {
         exclude: /node_modules/
       }
     ]
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()]
   }
 };
