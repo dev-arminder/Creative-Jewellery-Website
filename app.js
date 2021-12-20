@@ -13,6 +13,18 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/about", (req, res) => {
+  res.render("index");
+});
+
+app.get("/detail/:id", (req, res) => {
+  res.render("index");
+});
+
+app.get("/collections", (req, res) => {
+  res.render("index");
+});
+
 app.listen(PORT, () => {
   console.log(`APP is Running on PORT - ${PORT}`);
 });
