@@ -4,17 +4,18 @@
   "description": "Boilerplate for Frontend Project",
   "main": "index.js",
   "scripts": {
-    "start": "npm run development",
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "frontend:build": "webpack --progress --config webpack.config.build.js",
     "backend:build": "node app.js",
-    "backend:development": "nodemon app.js"
+    "backend:development": "nodemon app.js",
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\" "
   },
   "author": "Arminder Singh",
   "license": "ISC",
   "devDependencies": {
     "babel-loader": "^8.2.3",
     "clean-webpack-plugin": "^4.0.0",
+    "concurrently": "^6.5.1",
     "copy-webpack-plugin": "^10.1.0",
     "css-loader": "^6.5.1",
     "eslint": "^7.32.0",
