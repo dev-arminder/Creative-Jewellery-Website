@@ -10,19 +10,19 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("pages/home");
 });
 
 app.get("/about", (req, res) => {
-  res.render("index");
+  res.render("pages/about");
 });
 
-app.get("/detail/:id", (req, res) => {
-  res.render("index");
+app.get("/detail/:uid", (req, res) => {
+  res.render("pages/detail");
 });
 
 app.get("/collections", (req, res) => {
-  res.render("index");
+  res.render("pages/collection");
 });
 
 app.listen(PORT, () => {
