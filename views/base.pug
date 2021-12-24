@@ -22,14 +22,14 @@ html(lang="en")
 
     //- og - OPEN GRAPH - How information gonna be displayed upon sharing
     //- For Facebook
-    //- meta(property="og:description", content=meta.data.description)
-    //- meta(property="og:image", content=meta.data.image ? meta.data.image.url : '')
+    meta(property="og:description", content=meta.data.description)
+    meta(property="og:image", content=meta.data.image ? meta.data.image.url : '')
     
     //- For Twitter
     meta(name="twitter:card", content="summary_large_image")
-    //- meta(name="twitter:title", content=meta.data.title)
-    //- meta(name="twitter:description", content=meta.data.description)
-    //- meta(name="twitter:image", content=meta.data.image ? meta.data.image.url : '')
+    meta(name="twitter:title", content=meta.data.title)
+    meta(name="twitter:description", content=meta.data.description)
+    meta(name="twitter:image", content=meta.data.image ? meta.data.image.url : '')
 
     link(href="main.css", rel="stylesheet")
 
