@@ -57,7 +57,7 @@ app.get("/about", (req, res) => {
         // response is the response object. Render your views here.
         const { results } = response;
         const [meta, about] = results;
-
+        about.data.body.forEach(media => console.log(media));
         res.render("pages/about", {
           meta,
           about
