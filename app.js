@@ -71,15 +71,24 @@ app.get("/detail/:uid", async (req, res) => {
   const product = await api.getByUID("product", req.params.uid, {
     fetchLinks: "collection.title"
   });
-  console.log(product.data.informations);
+  // console.log(product.data.informations);
   res.render("pages/detail", {
     meta,
     product
   });
 });
 
-app.get("/collections", (req, res) => {
-  res.render("pages/collection");
+app.get("/collections", async (req, res) => {
+  const api = await initApi(req);
+  const meta = await api.getSingle("meta");
+  const collections = await api.query(
+    Prismic.Predicates.at("document.type", "collection")
+  );
+  console.log(collections);
+  res.render("pages/collections", {
+    meta,
+    collections
+  });
 });
 
 app.listen(PORT, () => {
