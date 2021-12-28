@@ -17,7 +17,14 @@ block content
           .detail__information_highlights
             each highlight in product.data.highlights 
               p.detail__information_highlight
-                svg.default__information_highlight_icon
-                use(xlink:href=highlight.highlights_icon)
+                svg.detail__information_highlight_icon
+                use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
 
-                | #{highlight.highlights_text}
+                span.detail__information_highlight_text=highlight.highlights_text
+          .detail__information_list
+              each item in product.data.informations
+                p.detail__information_item
+                  strong.detail__information_item_title=item.informations_label
+                  span.detail__information_item_description=item.informations_description
+                  
+                
