@@ -49,25 +49,33 @@ app.get("/", (req, res) => {
   res.render("pages/home");
 });
 
-app.get("/about", (req, res) => {
-  initApi(req).then(api => {
-    api
-      .query(Prismic.Predicates.any("document.type", ["meta", "about"]))
-      .then(response => {
-        // response is the response object. Render your views here.
-        const { results } = response;
-        const [meta, about] = results;
-        about.data.body.forEach(media => console.log(media));
-        res.render("pages/about", {
-          meta,
-          about
-        });
+app.get("/about", async (req, res) => {
+  const api = await initApi(req);
+  api
+    .query(Prismic.Predicates.any("document.type", ["meta", "about"]))
+    .then(response => {
+      // response is the response object. Render your views here.
+      const { results } = response;
+      const [meta, about] = results;
+      // about.data.body.forEach(media => console.log(media));
+      res.render("pages/about", {
+        meta,
+        about
       });
-  });
+    });
 });
 
-app.get("/detail/:uid", (req, res) => {
-  res.render("pages/detail");
+app.get("/detail/:uid", async (req, res) => {
+  const api = await initApi(req);
+  const meta = await api.getSingle("meta");
+  const product = await api.getByUID("product", req.params.uid, {
+    fetchLinks: "collection.title"
+  });
+  console.log(product.data.highlights);
+  res.render("pages/detail", {
+    meta,
+    product
+  });
 });
 
 app.get("/collections", (req, res) => {
