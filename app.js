@@ -60,7 +60,8 @@ app.get("/about", async (req, res) => {
     .then(response => {
       // response is the response object. Render your views here.
       const { results } = response;
-      const [meta, about] = results;
+      console.log(results);
+      const [about, meta] = results;
       // about.data.body.forEach(media => console.log(media));
       res.render("pages/about", {
         meta,
@@ -92,7 +93,7 @@ app.get("/collections", async (req, res) => {
     }
   );
 
-  console.log(collections[0].data.product);
+  console.log(results);
 
   res.render("pages/collections", {
     meta,
