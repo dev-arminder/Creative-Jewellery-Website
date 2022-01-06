@@ -76,7 +76,9 @@ app.get("/detail/:uid", async (req, res) => {
   const product = await api.getByUID("product", req.params.uid, {
     fetchLinks: "collection.title"
   });
-  // console.log(product.data.informations);
+  // const product = await api.getByUID("product", req.params.uid);
+
+  console.log(product.data.highlights);
   res.render("pages/detail", {
     meta,
     product
@@ -93,7 +95,7 @@ app.get("/collections", async (req, res) => {
     }
   );
 
-  console.log(results);
+  console.log(collections[0].data.products[0].products_product.data);
 
   res.render("pages/collections", {
     meta,

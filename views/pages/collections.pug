@@ -9,7 +9,7 @@ block content
       .collections__gallery
         .collections__gallery_wrapper
           each collection in collections
-            each product in collection.data.product
+            each product in collection.data.products
               a.collections__gallery_link
                 figure.collections__gallery_media
                   img.collections__gallery_media_image(alt=product.products_product.data.image.alt src=product.products_product.data.image.url)
