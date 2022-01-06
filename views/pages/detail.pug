@@ -7,7 +7,7 @@ block content
   .detail
     .detail__wrapper
       figure.detail__media
-        img.detail__media_image(alt=product.data.product.alt, src=product.data.product.url)
+        img.detail__media_image(alt=product.data.image.alt, src=product.data.image.url)
       
       .detail__information 
         p.detail__information_collection=product.data.collection.data.title
@@ -27,4 +27,4 @@ block content
                   strong.detail__information_item_title=item.informations_label
                   span.detail__information_item_description=item.informations_description
                   
-          a.detail__information_link(href=product.data.link_url.url)=product.data.link_text      
+          a.detail__information_link(href=product.data.link_url.url target="_blank")=product.data.link_text      

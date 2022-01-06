@@ -60,7 +60,7 @@ app.get("/about", async (req, res) => {
     .then(response => {
       // response is the response object. Render your views here.
       const { results } = response;
-      console.log(results);
+      // console.log(results);
       const [about, meta] = results;
       // about.data.body.forEach(media => console.log(media));
       res.render("pages/about", {
@@ -73,12 +73,13 @@ app.get("/about", async (req, res) => {
 app.get("/detail/:uid", async (req, res) => {
   const api = await initApi(req);
   const meta = await api.getSingle("meta");
+
   const product = await api.getByUID("product", req.params.uid, {
     fetchLinks: "collection.title"
   });
   // const product = await api.getByUID("product", req.params.uid);
 
-  console.log(product.data.highlights);
+  // console.log(product);
   res.render("pages/detail", {
     meta,
     product
@@ -88,6 +89,7 @@ app.get("/detail/:uid", async (req, res) => {
 app.get("/collections", async (req, res) => {
   const api = await initApi(req);
   const meta = await api.getSingle("meta");
+  const home = await api.getSingle("home");
   const { results: collections } = await api.query(
     Prismic.Predicates.at("document.type", "collection"),
     {
@@ -95,11 +97,12 @@ app.get("/collections", async (req, res) => {
     }
   );
 
-  console.log(collections[0].data.products[0].products_product.data);
-
+  // console.log(collections[0].data.products[0].products_product.data);
+  console.log(home);
   res.render("pages/collections", {
     meta,
-    collections
+    collections,
+    home
   });
 });
 
