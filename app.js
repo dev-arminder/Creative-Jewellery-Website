@@ -76,10 +76,20 @@ app.get("/", async (req, res) => {
   // API call for respective pages and data
   const meta = await api.getSingle("meta");
   const preloader = await api.getSingle("preloader");
+  const home = await api.getSingle("home");
+  const { results: collections } = await api.query(
+    Prismic.Predicates.at("document.type", "collection"),
+    {
+      fetchLinks: "product.image"
+    }
+  );
+  // console.log(home.data.gallery);
 
   res.render("pages/home", {
     meta,
-    preloader
+    preloader,
+    home,
+    collections
   });
 });
 
