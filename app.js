@@ -49,11 +49,6 @@ const handleLinkResolver = doc => {
   if (doc.type === "collections") {
     return "/collections";
   }
-  // if (doc.type === 'page') {
-  //   return '/page/' + doc.uid;
-  // } else if (doc.type === 'blog_post') {
-  //   return '/blog/' + doc.uid;
-  // }
   // Default to homepage
   return "/";
 };
@@ -96,10 +91,7 @@ app.get("/", async (req, res) => {
   // intial Prismic request
   const api = await initApi(req);
   // API call for respective pages and data
-  // const meta = await api.getSingle("meta");
-  // const preloader = await api.getSingle("preloader");
   const home = await api.getSingle("home");
-  // const navigation = await api.getSingle("navigation");
   const defaults = await handleRequestDefault(api);
   const { results: collections } = await api.query(
     Prismic.Predicates.at("document.type", "collection"),
@@ -107,64 +99,41 @@ app.get("/", async (req, res) => {
       fetchLinks: "product.image"
     }
   );
-  // console.log(home.data.gallery);
-  // console.log(navigation.data);
-  console.log(defaults);
+
   res.render("pages/home", {
-    // meta,
-    // preloader,
     ...defaults,
     home,
     collections
-    // navigation
   });
 });
 
 app.get("/about", async (req, res) => {
   const api = await initApi(req);
-  // const meta = await api.getSingle("meta");
   const about = await api.getSingle("about");
-  // const preloader = await api.getSingle("preloader");
-  // const navigation = await api.getSingle("navigation");
   const defaults = await handleRequestDefault(api);
-  // console.log(preloader);
   res.render("pages/about", {
-    // meta,
     ...defaults,
     about
-    // preloader,
-    // navigation
   });
 });
 
 app.get("/detail/:uid", async (req, res) => {
   const api = await initApi(req);
   const defaults = await handleRequestDefault(api);
-  // const meta = await api.getSingle("meta");
-  // const preloader = await api.getSingle("preloader");
-  // const navigation = await api.getSingle("navigation");
   const product = await api.getByUID("product", req.params.uid, {
     fetchLinks: "collection.title"
   });
 
-  // const product = await api.getByUID("product", req.params.uid);
-  // console.log(product);
   res.render("pages/detail", {
-    // meta,
     ...defaults,
     product
-    // preloader,
-    // navigation
   });
 });
 
 app.get("/collections", async (req, res) => {
   const api = await initApi(req);
   const defaults = await handleRequestDefault(api);
-  // const meta = await api.getSingle("meta");
   const home = await api.getSingle("home");
-  // const preloader = await api.getSingle("preloader");
-  // const navigation = await api.getSingle("navigation");
   const { results: collections } = await api.query(
     Prismic.Predicates.at("document.type", "collection"),
     {
@@ -172,15 +141,10 @@ app.get("/collections", async (req, res) => {
     }
   );
 
-  // console.log(collections[0].data.products[0].products_product.data);
-  // console.log(home);
   res.render("pages/collections", {
-    // meta,
     ...defaults,
     collections,
     home
-    // preloader,
-    // navigation
   });
 });
 
