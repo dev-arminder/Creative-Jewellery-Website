@@ -20,7 +20,7 @@ block content
                 svg.detail__information_highlight_icon
                 use(xlink:href=`sprite-${highlight.highlights_icon.toLowerCase()}`)
 
-                span.detail__information_highlight_text=highlight.highlights_text
+                span.detail__information_highlight_text!=highlight.highlights_text.replace(/\n/, '<br>')
           .detail__information_list
               each item in product.data.informations
                 p.detail__information_item
