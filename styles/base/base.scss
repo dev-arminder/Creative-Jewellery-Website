@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   // Responsive Fonst Size Tricks (100vw / totalWidthofDesign) * 10 - Font Scale According to Screen
   font-size: calc((100vw / 1920) * 10);
@@ -6,4 +12,14 @@ html {
 body {
   @extend %description-16;
   font-family: $font-suisse-bp;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+img {
+  vertical-align: middle;
 }

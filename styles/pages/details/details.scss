@@ -1,6 +1,9 @@
 .detail {
   @extend %cover;
-  @extend %cover;
+  @extend %center;
+
+  background: $color-quicksand;
+  color: $color-white;
 }
 
 .detail__wrapper {
@@ -19,6 +22,7 @@
   object-fit: cover;
 }
 .detail__information {
+  padding-left: 8.2rem;
 }
 
 .detail__information_collection {
@@ -51,9 +55,9 @@
 .detail__information_highlight_icon {
   width: 4rem;
   height: 4rem;
-  border: 1px solid #f0f;
+  border: 1px solid currentColor;
   border-radius: 50%;
-  margin-right: 3.75rem;
+  margin-right: 4rem;
 }
 
 .detail__information_highlight_text {
@@ -66,7 +70,6 @@
 
 .detail__information_item {
   display: flex;
-  align-items: center;
 
   &:not(:first-child) {
     margin-top: 4rem;
@@ -74,12 +77,17 @@
 }
 .detail__information_item_title {
   @extend %description-12;
+  padding-right: 2.5rem;
+  width: 10rem;
 }
 .detail__information_item_description {
   @extend %description-16;
+  letter-spacing: 0.03rem;
+  max-width: 44rem;
 }
 
 .detail__information_link {
   @extend %title-30;
+  display: inline-block;
   margin-top: 3rem;
 }
