@@ -33,9 +33,11 @@ block content
                 p.about__highlight_label=section.primary_label
                 
               h3.about__highlight_title=section.primary.title1
-              each media in section.items
-                figure.about__highlight_media
-                  img.about__highlight_media_img(alt=media.image.alt, src=media.image.url)
+
+              .about__highlight_medias
+                each media in section.items
+                  figure.about__highlight_media
+                    img.about__highlight_media_img(alt=media.image.alt, src=media.image.url)
         
         if section.slice_type == "gallery"
           section.about__gallery

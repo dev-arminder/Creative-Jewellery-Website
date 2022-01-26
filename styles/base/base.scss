@@ -6,7 +6,7 @@
 
 html {
   // Responsive Fonst Size Tricks (100vw / totalWidthofDesign) * 10 - Font Scale According to Screen
-  font-size: calc((100vw / 1920) * 10);
+  font-size: calc(100vw / 1920 * 10);
 }
 
 body {
