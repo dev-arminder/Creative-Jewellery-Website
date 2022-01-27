@@ -1,14 +1,29 @@
 .navigation {
+  @extend %cover;
+  color: $color-quarter-spanish-white;
+  z-index: z("navigation");
+  //   z-index: 5;
 }
-.navigation__wrapper {
-}
+
 .navigation__link {
+  font-size: 0;
+  position: absolute;
+  top: 4rem;
+  left: 4rem;
+  width: 12.8rem;
+  height: 2rem;
 }
 .navigation__link__icon {
+  display: block;
 }
 
 .navigation__list {
 }
-
+.navigation__list__item {
+  position: absolute;
+  top: 4rem;
+  right: 4rem;
+}
 .navigation__list__link {
+  @extend %title-20;
 }

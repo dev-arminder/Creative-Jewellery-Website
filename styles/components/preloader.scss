@@ -6,7 +6,7 @@
   background: $color-contessa;
   color: $color-white;
   font-weight: normal;
-
+  z-index: z("preloader");
   display: none;
 }
 .preloader__text {
