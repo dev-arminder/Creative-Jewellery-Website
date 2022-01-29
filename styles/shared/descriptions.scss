@@ -10,6 +10,10 @@
 %description-14 {
   font-size: 1.4rem;
   font-weight: 300;
+
+  @include media("<phone") {
+    font-size: 3rem;
+  }
 }
 
 %description-16 {

@@ -11,8 +11,7 @@ block content
           .collections__title_label!=`${home.data.collection} <br> ${Numbers(index)}`
           .collections__titles_title=collection.data.title
       .collections__gallery
-        .collections__gallery_wrapper
-          
+        .collections__gallery_wrapper 
           each collection in collections
             each product in collection.data.products
               a.collections__gallery_link(href=Link(product.products_product))
@@ -25,4 +24,8 @@ block content
           h2.collections__article_title=`${collection.data.title} ${home.data.collection}`
           p.collections__article_description=collection.data.description
 
-            
+    .collections__mobile
+        each collection, index in collections
+          .collections__mobile_item
+            .collections__mobile_item_label!=`${home.data.collection} <br> ${Numbers(index)}`
+            .collections__mobile_item_title=collection.data.title       

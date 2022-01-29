@@ -13,6 +13,10 @@
   transform: rotate(90deg);
   margin: 0 3rem;
   letter-spacing: 0.1em;
+
+  @include media("<phone") {
+    font-size: 1.2rem;
+  }
 }
 %vertical__titles_title {
   @extend %title-200;
