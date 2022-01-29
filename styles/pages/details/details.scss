@@ -9,12 +9,19 @@
 .detail__wrapper {
   display: flex;
   align-items: center;
+
+  @include media("<phone") {
+    flex-direction: column;
+  }
 }
 
 .detail__media {
   width: 55.4rem;
   height: 78.2rem;
   position: relative;
+
+  @include media("<phone") {
+  }
 }
 
 .detail__media_image {
@@ -90,4 +97,21 @@
   @extend %title-30;
   display: inline-block;
   margin-top: 3rem;
+}
+
+.detail__button {
+  height: 6rem;
+  width: 12.8rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.details__button__icon {
+  @extend %cover;
 }
