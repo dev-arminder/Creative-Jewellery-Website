@@ -2,7 +2,10 @@ import Page from "../../classes/Page";
 
 class Details extends Page {
   constructor() {
-    super({ id: "details" });
+    super({
+      id: "details",
+      element: ".details"
+    });
     // console.log("Home.js");
   }
 }
