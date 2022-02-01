@@ -1,0 +1,11 @@
+/*! ./pages/about/about */
+
+/*! ./pages/collections/collections */
+
+/*! ./pages/details/details */
+
+/*! ./pages/home/home */
+
+/*!**********************!*\
+  !*** ./app/index.js ***!
+  \**********************/
