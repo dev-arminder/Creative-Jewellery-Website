@@ -13,9 +13,9 @@ class Home extends Page {
   }
   create() {
     super.create();
-    this.elements.link.addEventListener("click", () => {
-      alert("Clicked Me");
-    });
+    // this.elements.link.addEventListener("click", () => {
+    //   alert("Clicked Me");
+    // });
   }
 }
 

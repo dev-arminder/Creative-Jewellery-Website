@@ -1,3 +1,5 @@
+import Preloader from "./components/Preloader";
+
 import Home from "./pages/home/home";
 import About from "./pages/about/about";
 import Details from "./pages/details/details";
@@ -7,10 +9,19 @@ import each from "lodash/each";
 
 class App {
   constructor() {
+    this.createPreloader();
+
     this.createContent();
     this.createPages();
     this.addLinkListeners();
   }
+
+  createPreloader() {
+    this.preloader = new Preloader();
+    const handlePreloaded = this.onPreloaded.bind(this);
+    this.preloader.once("completed", handlePreloaded);
+  }
+
   createContent() {
     this.content = document.querySelector(".content");
     this.template = this.content.getAttribute("data-template");
@@ -25,7 +36,7 @@ class App {
     };
     this.page = this.pages[this.template];
     this.page.create();
-    this.page.show();
+
     // console.log(this.page);
   }
 
@@ -42,11 +53,19 @@ class App {
       this.content.innerHTML = divContent.innerHTML;
       this.page = this.pages[this.template];
       this.page.create();
-      await this.page.show();
+      // await this.page.show();
+      this.page.show();
+
+      this.addLinkListeners();
     } else {
       alert("Man This Page doesn't exist");
     }
     console.log(request);
+  }
+
+  onPreloaded() {
+    this.preloader.destroy();
+    this.page.show();
   }
 
   addLinkListeners() {
