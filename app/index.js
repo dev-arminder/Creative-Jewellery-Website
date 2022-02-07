@@ -13,7 +13,12 @@ class App {
 
     this.createContent();
     this.createPages();
+    // TO LIMIT SMOOTH SCROLL
+    this.addEventsListeners();
     this.addLinkListeners();
+
+    // smooth Scroll Hack
+    this.update();
   }
 
   createPreloader() {
@@ -52,7 +57,11 @@ class App {
       this.content.setAttribute("data-template", this.template);
       this.content.innerHTML = divContent.innerHTML;
       this.page = this.pages[this.template];
+
       this.page.create();
+
+      // TO LIMIT SMOOTH SCROLL
+      this.onResize();
       // await this.page.show();
       this.page.show();
 
@@ -65,6 +74,10 @@ class App {
 
   onPreloaded() {
     this.preloader.destroy();
+
+    // TO LIMIT SMOOTH SCROLL
+    this.onResize();
+
     this.page.show();
   }
 
@@ -77,6 +90,24 @@ class App {
         this.onChange(href);
       };
     });
+  }
+
+  onResize() {
+    if (this.page && this.page.onResize) {
+      this.page.onResize();
+    }
+  }
+
+  update() {
+    if (this.page && this.page.update) {
+      this.page.update();
+    }
+
+    const frame = window.requestAnimationFrame(this.update.bind(this));
+  }
+
+  addEventsListeners() {
+    window.addEventListener("resize", this.onResize.bind(this));
   }
 }
 

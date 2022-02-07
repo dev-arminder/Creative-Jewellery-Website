@@ -36,6 +36,7 @@
     "include-media": "^1.4.10",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss-loader": "^6.2.1",
+    "prefix": "^1.0.0",
     "sass": "^1.45.0",
     "sass-loader": "^12.4.0",
     "terser-webpack-plugin": "^5.2.5",

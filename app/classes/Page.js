@@ -1,5 +1,6 @@
 import each from "lodash/each";
 import GSAP from "gsap";
+import Prefix from "prefix";
 
 class Page {
   constructor({ id, element, elements }) {
@@ -8,10 +9,17 @@ class Page {
       ...elements
     };
     this.id = id;
+    this.transformPrefix = Prefix("transform");
   }
   create() {
     this.element = document.querySelector(this.selector);
     this.elements = {};
+    this.scroll = {
+      current: 0,
+      target: 0,
+      last: 0,
+      limit: 0
+    };
 
     each(this.selectorChildren, (entry, key) => {
       if (
@@ -36,7 +44,8 @@ class Page {
 
   show() {
     return new Promise((resolve, reject) => {
-      GSAP.fromTo(
+      this.animationIn = GSAP.timeline();
+      this.animationIn.fromTo(
         this.element,
         {
           autoAlpha: 0
@@ -46,16 +55,66 @@ class Page {
           onComplete: resolve
         }
       );
+      this.animationIn.call(() => {
+        this.addEventsListener();
+        resolve();
+      });
     });
   }
 
   hide() {
     return new Promise((resolve, reject) => {
-      GSAP.to(this.element, {
+      this.removeEventListener();
+      this.animationOut = GSAP.timeline();
+      this.animationOut.to(this.element, {
         autoAlpha: 0,
         onComplete: resolve
       });
     });
+  }
+
+  onResize() {
+    if (this.elements.wrapper) {
+      this.scroll.limit =
+        this.elements.wrapper.clientHeight - window.innerHeight + 200;
+    }
+  }
+
+  onMouseWheel(event) {
+    // console.log(event);
+    const { deltaY } = event;
+    this.scroll.target += deltaY;
+  }
+
+  update() {
+    // console.log(this.scroll.target);
+    this.scroll.current = GSAP.utils.interpolate(
+      this.scroll.current,
+      this.scroll.target,
+      0.1
+    );
+    this.scroll.target = GSAP.utils.clamp(
+      0,
+      this.scroll.limit,
+      this.scroll.target
+    );
+
+    if (this.scroll.current < 0.01) {
+      this.scroll.current = 0;
+    }
+    if (this.elements.wrapper) {
+      this.elements.wrapper.style[
+        this.transformPrefix
+      ] = `translateY(-${this.scroll.current}px)`;
+    }
+  }
+
+  addEventsListener() {
+    window.addEventListener("mousewheel", this.onMouseWheel.bind(this));
+  }
+
+  removeEventListener() {
+    window.removeEventListener("mousewheel", this.onMouseWheel.bind(this));
   }
 }
 

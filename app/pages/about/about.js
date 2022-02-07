@@ -6,7 +6,9 @@ class About extends Page {
       id: "about",
       element: ".about",
       elements: {
-        title: ".about__title"
+        title: ".about__title",
+        navigation: document.querySelector(".navigation"),
+        wrapper: ".about__wrapper"
       }
     });
     // console.log("Home.js");
