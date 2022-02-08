@@ -1,5 +1,9 @@
 %page {
   @extend %cover;
+
+  // Fixing Flash between Page transition
+  opacity: 0;
+  visibility: hidden;
 }
 %page__wrapper {
   color: inherit;

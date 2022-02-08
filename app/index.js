@@ -6,12 +6,15 @@ import Details from "./pages/details/details";
 import collections from "./pages/collections/collections";
 
 import each from "lodash/each";
+import Navigation from "./components/Navigation";
 
 class App {
   constructor() {
-    this.createPreloader();
-
     this.createContent();
+
+    this.createPreloader();
+    this.createNavigation();
+
     this.createPages();
     // TO LIMIT SMOOTH SCROLL
     this.addEventsListeners();
@@ -19,6 +22,12 @@ class App {
 
     // smooth Scroll Hack
     this.update();
+  }
+
+  createNavigation() {
+    this.navigation = new Navigation({
+      template: this.template
+    });
   }
 
   createPreloader() {
@@ -57,6 +66,9 @@ class App {
       this.content.setAttribute("data-template", this.template);
       this.content.innerHTML = divContent.innerHTML;
       this.page = this.pages[this.template];
+
+      // Implementing Navigation
+      this.navigation.onChange(this.template);
 
       this.page.create();
 
