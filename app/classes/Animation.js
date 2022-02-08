@@ -25,6 +25,8 @@ class Animation extends Component {
   animateIn() {}
 
   animateOut() {}
+
+  onResize() {}
 }
 
 export default Animation;

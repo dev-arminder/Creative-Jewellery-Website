@@ -56,7 +56,9 @@ button {
   @extend %cover;
 }
 
-[data-animation="title"] {
+[data-animation="title"],
+[data-animation="paragraph"],
+[data-animation="Label"] {
   span {
     display: inline-block;
     overflow: hidden;

@@ -5,13 +5,19 @@ import Prefix from "prefix";
 import normalizeWheel from "normalize-wheel";
 
 import Title from "../animations/Title";
+import Paragraph from "../animations/Paragraph";
+import Label from "../animations/Label";
+import Highlight from "../animations/Highlight";
 
 class Page {
   constructor({ id, element, elements }) {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
-      animationsTitles: '[data-animation="title"]'
+      animationsTitles: '[data-animation="title"]',
+      animationsParagraphs: '[data-animation="paragraph"]',
+      animationsLabel: '[data-animation="Label"]',
+      animationsHighlight: '[data-animation="highlight"]'
     };
     this.id = id;
     this.transformPrefix = Prefix("transform");
@@ -48,9 +54,33 @@ class Page {
   }
 
   createAnimations() {
+    this.animations = [];
     this.animationsTitles = map(this.elements.animationsTitles, element => {
       return new Title({ element });
     });
+    this.animationsParagraphs = map(
+      this.elements.animationsParagraphs,
+      element => {
+        return new Paragraph({ element });
+      }
+    );
+    this.animationsLabel = map(this.elements.animationsLabel, element => {
+      return new Label({ element });
+    });
+
+    this.animationsHighlight = map(
+      this.elements.animationsHighlight,
+      element => {
+        return new Highlight({ element });
+      }
+    );
+
+    this.animations.push(
+      ...this.animationsTitles,
+      ...this.animationsParagraphs,
+      ...this.animationsLabel,
+      ...this.animationsHighlight
+    );
   }
 
   show() {
@@ -89,7 +119,7 @@ class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight + 200;
     }
-    each(this.animationsTitles, animation => {
+    each(this.animations, animation => {
       animation.onResize();
     });
   }
