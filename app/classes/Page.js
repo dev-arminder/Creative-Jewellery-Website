@@ -1,12 +1,17 @@
 import each from "lodash/each";
+import map from "lodash/map";
 import GSAP from "gsap";
 import Prefix from "prefix";
+import normalizeWheel from "normalize-wheel";
+
+import Title from "../animations/Title";
 
 class Page {
   constructor({ id, element, elements }) {
     this.selector = element;
     this.selectorChildren = {
-      ...elements
+      ...elements,
+      animationsTitles: '[data-animation="title"]'
     };
     this.id = id;
     this.transformPrefix = Prefix("transform");
@@ -38,8 +43,14 @@ class Page {
         }
       }
     });
-    // console.log(this.elements);
-    // console.log("Create" + this.id);
+
+    this.createAnimations();
+  }
+
+  createAnimations() {
+    this.animationsTitles = map(this.elements.animationsTitles, element => {
+      return new Title({ element });
+    });
   }
 
   show() {
@@ -78,12 +89,15 @@ class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight + 200;
     }
+    each(this.animationsTitles, animation => {
+      animation.onResize();
+    });
   }
 
   onMouseWheel(event) {
     // console.log(event);
-    const { deltaY } = event;
-    this.scroll.target += deltaY;
+    const { pixelY } = normalizeWheel(event);
+    this.scroll.target += pixelY;
   }
 
   update() {
