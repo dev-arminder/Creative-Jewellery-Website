@@ -20,6 +20,9 @@ html {
   @include media("<=phone") {
     font-size: calc(100vw / 750 * 10);
   }
+
+  background: $color-contessa;
+  color: $color-quarter-spanish-white;
 }
 
 body {
