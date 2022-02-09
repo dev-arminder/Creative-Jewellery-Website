@@ -10,6 +10,7 @@ import Label from "../animations/Label";
 import Highlight from "../animations/Highlight";
 
 import { colorManager } from "./Colors";
+import AsyncLoad from "./AsyncLoad";
 
 class Page {
   constructor({ id, element, elements }) {
@@ -19,7 +20,8 @@ class Page {
       animationsTitles: '[data-animation="title"]',
       animationsParagraphs: '[data-animation="paragraph"]',
       animationsLabel: '[data-animation="Label"]',
-      animationsHighlight: '[data-animation="highlight"]'
+      animationsHighlight: '[data-animation="highlight"]',
+      preloaders: "[data-src]"
     };
     this.id = id;
     this.transformPrefix = Prefix("transform");
@@ -53,6 +55,7 @@ class Page {
     });
 
     this.createAnimations();
+    this.createPreloader();
   }
 
   createAnimations() {
@@ -85,6 +88,12 @@ class Page {
     );
   }
 
+  createPreloader() {
+    this.preloaders = map(this.elements.preloaders, element => {
+      return new AsyncLoad({ element });
+    });
+  }
+
   show() {
     return new Promise((resolve, reject) => {
       colorManager.change({
@@ -111,7 +120,7 @@ class Page {
 
   hide() {
     return new Promise((resolve, reject) => {
-      this.removeEventListener();
+      this.destroy();
       this.animationOut = GSAP.timeline();
       this.animationOut.to(this.element, {
         autoAlpha: 0,
@@ -165,6 +174,11 @@ class Page {
 
   removeEventListener() {
     window.removeEventListener("mousewheel", this.onMouseWheel.bind(this));
+  }
+
+  // For Destroying
+  destroy() {
+    this.removeEventListener();
   }
 }
 
