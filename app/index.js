@@ -8,12 +8,17 @@ import collections from "./pages/collections/collections";
 import each from "lodash/each";
 import Navigation from "./components/Navigation";
 
+import Canvas from "components/Canvas";
+
 class App {
   constructor() {
     this.createContent();
 
     this.createPreloader();
     this.createNavigation();
+
+    // Creating Canvas
+    this.createCanvas();
 
     this.createPages();
     // TO LIMIT SMOOTH SCROLL
@@ -36,6 +41,9 @@ class App {
     this.preloader.once("completed", handlePreloaded);
   }
 
+  createCanvas() {
+    this.canvas = new Canvas();
+  }
   createContent() {
     this.content = document.querySelector(".content");
     this.template = this.content.getAttribute("data-template");
@@ -105,12 +113,19 @@ class App {
   }
 
   onResize() {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onResize();
+    }
     if (this.page && this.page.onResize) {
       this.page.onResize();
     }
   }
 
   update() {
+    if (this.canvas && this.canvas.update) {
+      this.canvas.update();
+    }
+
     if (this.page && this.page.update) {
       this.page.update();
     }
