@@ -4,12 +4,15 @@ import fragment from "../../shaders/plane-fragment.glsl";
 import vertex from "../../shaders/plane-vertex.glsl";
 
 class Media {
-  constructor({ element, geometry, gl, scene, index }) {
+  constructor({ element, geometry, gl, scene, index, sizes }) {
     this.element = element;
     this.geometry = geometry;
     this.gl = gl;
     this.scene = scene;
     this.index = index;
+
+    this.sizes = sizes;
+
     this.createTexture();
     this.createProgram();
     this.createMesh();
@@ -17,7 +20,7 @@ class Media {
 
   createTexture() {
     this.texture = new Texture(this.gl);
-    console.log(this.element);
+    // console.log(this.element);
     this.image = new window.Image();
     this.image.crossOrigin = "anonymous";
     this.image.src = this.element.getAttribute("data-src");
@@ -40,9 +43,45 @@ class Media {
       geometry: this.geometry
     });
     this.mesh.setParent(this.scene);
-
-    this.mesh.position.x += this.index * this.mesh.scale.x;
+    this.mesh.scale.x = 2;
+    // this.mesh.position.x += this.index * this.mesh.scale.x;
   }
+
+  createBound({ sizes }) {
+    this.sizes = sizes;
+
+    this.bounds = this.element.getBoundingClientRect();
+
+    this.updateScale(sizes);
+    this.updateX();
+    this.updateY();
+  }
+
+  onResize(sizes) {
+    this.createBound(sizes);
+  }
+
+  updateScale({ width, height }) {
+    this.height = this.bounds.height / window.innerHeight;
+    this.width = this.bounds.width / window.innerWidth;
+
+    // this.mesh.scale.x = width * this.bounds.width;
+    // this.mesh.scale.y = height * this.bounds.height;
+
+    this.mesh.scale.x = this.sizes.width * this.width;
+    this.mesh.scale.y = this.sizes.height * this.height;
+
+    this.x = this.bounds.left / window.innerWidth;
+    this.y = this.bounds.top / window.innerHeight;
+
+    this.mesh.position.x = -width / 2 + this.mesh.scale.x / 2 + this.x * width;
+    this.mesh.position.y = height / 2 - this.mesh.scale.y / 2 - this.y * height;
+    console.log(this.mesh.position);
+  }
+
+  updateX() {}
+
+  updateY() {}
 }
 
 export default Media;
