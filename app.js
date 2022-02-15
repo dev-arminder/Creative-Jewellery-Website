@@ -101,6 +101,7 @@ app.get("/", async (req, res) => {
       fetchLinks: "product.image"
     }
   );
+  // console.log(home)
 
   res.render("pages/home", {
     ...defaults,

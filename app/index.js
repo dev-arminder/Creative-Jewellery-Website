@@ -121,6 +121,24 @@ class App {
     }
   }
 
+  // Mouse and Touch Evevnts
+  onTouchDown(event) {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onTouchDown(event);
+    }
+  }
+
+  onTouchMove(event) {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onTouchMove(event);
+    }
+  }
+
+  onTouchUp(event) {
+    if (this.canvas && this.canvas.onResize) {
+      this.canvas.onTouchUp(event);
+    }
+  }
   update() {
     if (this.canvas && this.canvas.update) {
       this.canvas.update();
@@ -134,6 +152,16 @@ class App {
   }
 
   addEventsListeners() {
+    // mouse Events
+    window.addEventListener("mousedown", this.onTouchDown.bind(this));
+    window.addEventListener("mouseup", this.onTouchUp.bind(this));
+    window.addEventListener("mousemove", this.onTouchMove.bind(this));
+
+    // touch Events
+    window.addEventListener("touchstart", this.onTouchDown.bind(this));
+    window.addEventListener("touchend", this.onTouchUp.bind(this));
+    window.addEventListener("touchmove", this.onTouchMove.bind(this));
+
     window.addEventListener("resize", this.onResize.bind(this));
   }
 }

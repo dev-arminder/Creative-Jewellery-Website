@@ -162,6 +162,7 @@
 }
 
 .home__gallery_media_image {
+  @extend %cover;
   opacity: 1;
 }
 .home__link {
