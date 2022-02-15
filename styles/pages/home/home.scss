@@ -48,8 +48,8 @@
 
 .home__gallery {
   @extend %cover;
-  // visibility: hidden;
-  width: 243.8rem;
+  visibility: hidden;
+  width: 243.8rem + 9rem;
   height: 172.5rem;
 }
 .home__gallery_media {

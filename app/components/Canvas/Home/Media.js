@@ -1,7 +1,7 @@
 import { Mesh, Program, Texture } from "ogl";
 
-import fragment from "../../shaders/plane-fragment.glsl";
-import vertex from "../../shaders/plane-vertex.glsl";
+import fragment from "../../../shaders/plane-fragment.glsl";
+import vertex from "../../../shaders/plane-vertex.glsl";
 
 class Media {
   constructor({ element, geometry, gl, scene, index, sizes }) {
@@ -16,6 +16,8 @@ class Media {
     this.createTexture();
     this.createProgram();
     this.createMesh();
+
+    this.extra = { x: 0, y: 0 };
   }
 
   createTexture() {
@@ -43,7 +45,7 @@ class Media {
       geometry: this.geometry
     });
     this.mesh.setParent(this.scene);
-    this.mesh.scale.x = 2;
+    // this.mesh.scale.x = 2;
     // this.mesh.position.x += this.index * this.mesh.scale.x;
   }
 
@@ -57,8 +59,14 @@ class Media {
     this.updateY();
   }
 
-  onResize(sizes) {
+  onResize(sizes, scroll) {
+    this.extra = {
+      x: 0,
+      y: 0
+    };
     this.createBound(sizes);
+    this.updateX(scroll ? scroll.x : 0);
+    this.updateY(scroll ? scroll.y : 0);
   }
 
   updateScale({ width, height }) {
@@ -76,16 +84,26 @@ class Media {
 
   updateX(x = 0) {
     this.x = (this.bounds.left + x) / window.innerWidth;
+    // this.mesh.position.x =
+    //   -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width;
     this.mesh.position.x =
-      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width;
+      -this.sizes.width / 2 +
+      this.mesh.scale.x / 2 +
+      this.x * this.sizes.width +
+      this.extra.x;
   }
 
   updateY(y = 0) {
     this.y = (this.bounds.top + y) / window.innerHeight;
+    // this.mesh.position.y =
+    //   this.sizes.height / 2 -
+    //   this.mesh.scale.y / 2 -
+    //   this.y * this.sizes.height;
     this.mesh.position.y =
       this.sizes.height / 2 -
       this.mesh.scale.y / 2 -
-      this.y * this.sizes.height;
+      this.y * this.sizes.height +
+      this.extra.y;
   }
 
   update(scroll) {

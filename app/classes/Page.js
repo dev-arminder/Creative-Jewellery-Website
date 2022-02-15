@@ -2,7 +2,6 @@ import each from "lodash/each";
 import map from "lodash/map";
 import GSAP from "gsap";
 import Prefix from "prefix";
-import normalizeWheel from "normalize-wheel";
 
 import Title from "../animations/Title";
 import Paragraph from "../animations/Paragraph";
@@ -139,9 +138,13 @@ class Page {
     });
   }
 
-  onMouseWheel(event) {
-    // console.log(event);
-    const { pixelY } = normalizeWheel(event);
+  // onMouseWheel(event) {
+  //   // console.log(event);
+  //   const { pixelY } = normalizeWheel(event);
+  //   this.scroll.target += pixelY;
+  // }
+
+  onWheel({ pixelY }) {
     this.scroll.target += pixelY;
   }
 
@@ -169,11 +172,11 @@ class Page {
   }
 
   addEventsListener() {
-    window.addEventListener("mousewheel", this.onMouseWheel.bind(this));
+    // window.addEventListener("mousewheel", this.onMouseWheel.bind(this));
   }
 
   removeEventListener() {
-    window.removeEventListener("mousewheel", this.onMouseWheel.bind(this));
+    // window.removeEventListener("mousewheel", this.onMouseWheel.bind(this));
   }
 
   // For Destroying

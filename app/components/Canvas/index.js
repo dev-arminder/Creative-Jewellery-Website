@@ -1,6 +1,6 @@
 import { Renderer, Camera, Transform } from "ogl";
 
-import Home from "./Home";
+import Home from "./Home/Home";
 
 class Canvas {
   constructor() {
@@ -25,7 +25,8 @@ class Canvas {
   }
   createRenderer() {
     this.renderer = new Renderer({
-      alpha: true
+      alpha: true,
+      antialias: true
     });
     this.gl = this.renderer.gl;
     const scriptTag = document.querySelector("#main-script");
@@ -33,7 +34,7 @@ class Canvas {
   }
 
   createCamera() {
-    this.camera = new Camera();
+    this.camera = new Camera(this.gl);
     this.camera.position.z = 5;
   }
 
@@ -111,6 +112,12 @@ class Canvas {
       this.home.onResize({
         sizes: this.sizes
       });
+    }
+  }
+
+  onWheel(e) {
+    if (this.home) {
+      this.home.onWheel(e);
     }
   }
 
