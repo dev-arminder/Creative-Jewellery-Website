@@ -43,7 +43,9 @@ class App {
   }
 
   createCanvas() {
-    this.canvas = new Canvas();
+    this.canvas = new Canvas({
+      template: this.template
+    });
   }
   createContent() {
     this.content = document.querySelector(".content");
@@ -64,6 +66,8 @@ class App {
   }
 
   async onChange(url) {
+    this.canvas.onChangeStart(this.template);
+
     await this.page.hide();
     const request = await fetch(url);
     if (request.status === 200) {
@@ -74,6 +78,9 @@ class App {
       this.template = divContent.getAttribute("data-template");
       this.content.setAttribute("data-template", this.template);
       this.content.innerHTML = divContent.innerHTML;
+
+      this.canvas.onChangedEnd(this.template);
+
       this.page = this.pages[this.template];
 
       // Implementing Navigation

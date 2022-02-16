@@ -28,6 +28,7 @@ class Home {
     };
 
     this.gl = gl;
+    this.scene = scene
     this.group = new Transform();
 
     this.sizes = sizes;
@@ -39,6 +40,8 @@ class Home {
     this.createGallery();
 
     this.group.setParent(scene);
+
+    this.show();
   }
 
   createGeometry() {
@@ -55,6 +58,15 @@ class Home {
         sizes: this.sizes
       });
     });
+  }
+
+  // Animations
+  show() {
+    map(this.medias, media => media.show());
+  }
+
+  hide() {
+    map(this.medias, media => media.hide());
   }
 
   onResize(event) {
@@ -175,6 +187,10 @@ class Home {
       // Infinite scroll for Y-axis
       media.update(this.scroll);
     });
+  }
+
+  destroy() {
+    this.scene.removeChild(this.group);
   }
 }
 

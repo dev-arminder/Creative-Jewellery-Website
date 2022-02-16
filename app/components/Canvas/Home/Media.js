@@ -1,4 +1,5 @@
 import { Mesh, Program, Texture } from "ogl";
+import GSAP from "gsap"
 
 import fragment from "../../../shaders/plane-fragment.glsl";
 import vertex from "../../../shaders/plane-vertex.glsl";
@@ -34,6 +35,7 @@ class Media {
       fragment,
       vertex,
       uniforms: {
+        uAlpha: {value: 0},
         tMap: { value: this.texture }
       }
     });
@@ -57,6 +59,25 @@ class Media {
     this.updateScale(sizes);
     this.updateX();
     this.updateY();
+  }
+
+  // Animations
+  show() {
+    GSAP.fromTo(
+      this.program.uniforms.uAlpha,
+      {
+        value: 0
+      },
+      {
+        value: 1
+      }
+    );
+  }
+
+  hide() {
+    GSAP.to(this.program.uniforms.uAlpha, {
+      value: 0
+    });
   }
 
   onResize(sizes, scroll) {
