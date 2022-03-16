@@ -15,6 +15,7 @@ class AsyncLoad extends Component {
               this.element.classList.add("loaded");
             };
           }
+          // this.element.classList.add("loaded");
         }
       });
     });
