@@ -167,7 +167,7 @@ class App {
 
   update() {
     if (this.canvas && this.canvas.update) {
-      this.canvas.update();
+      this.canvas.update(this.page.scroll);
     }
 
     if (this.page && this.page.update) {

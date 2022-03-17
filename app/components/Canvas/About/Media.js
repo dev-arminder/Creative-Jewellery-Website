@@ -95,6 +95,16 @@ export default class Media {
 
   // Loop.
 
+  updateRotation() {
+    this.mesh.rotation.z = GSAP.utils.mapRange(
+      -this.sizes.width / 2,
+      this.sizes.width / 2,
+      Math.PI * 0.1,
+      -Math.PI * 0.1,
+      this.mesh.position.x
+    );
+  }
+
   updateScale() {
     this.height = this.bounds.height / window.innerHeight;
     this.width = this.bounds.width / window.innerWidth;
@@ -114,13 +124,22 @@ export default class Media {
 
     // const extra = Detection.isPhone() ? 20 : 40;
 
-    this.mesh.position.y = (this.sizes.height / 2) - (this.mesh.scale.y / 2) - (this.y * this.sizes.height); // prettier-ignore
+    this.mesh.position.y =
+      this.sizes.height / 2 -
+      this.mesh.scale.y / 2 -
+      this.y * this.sizes.height;
+    this.mesh.position.y +=
+      Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI + 0.1) *
+        1.2 -
+      1.2;
   }
 
   update(scroll) {
     if (!this.bounds) return;
 
     // console.log(extra)
+    this.updateRotation();
+    this.updateScale();
     this.updateX(scroll);
     this.updateY(0);
   }

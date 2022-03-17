@@ -201,7 +201,7 @@ class Canvas {
     }
 
     if (this.about) {
-      this.about.update();
+      this.about.update(scroll);
     }
 
     this.renderer.render({
