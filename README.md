@@ -1,4 +1,3 @@
-#Frontend Boilerplate
+Creative Frontend Website Using Headless CMS
 
-##Tech Used - 
 
